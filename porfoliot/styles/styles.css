@@ -11,7 +11,7 @@ body {
 .slider {
   width: 30%;
   height: 100vh;
- background:linear-gradient(rgb(40, 40, 40),rgb(29, 29, 29));
+ background:rgb(29, 29, 29);
  position:fixed;
  top: 0;
 left:0;
@@ -457,6 +457,18 @@ transition: fiter 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     height : 200px;
     border: none;
 }
+.reparation-amelioration img{
+    MARGIN: 20px;
+    width: 150px;
+    height : 200px;
+    border: none;
+}
+.scolaire img{
+    MARGIN: 20px;
+    width: 150px;
+    height : 200px;
+    border: none;
+}
 .imgprojet{
     display: flex;
     flex-direction: row;
@@ -465,7 +477,7 @@ transition: fiter 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     gap: 30px;
     justify-content: center;
 }
-.prgame, .prsite {
+.prgame, .prsite , .reparation-amelioration , .scolaire{
     position: relative;
     background-color: rgb(48, 47, 47);
     border: none;
@@ -478,7 +490,7 @@ transition: fiter 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
      transition: fiter 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-.prgame p, .prsite p {
+.prgame p, .prsite p ,.reparation-amelioration p , .scolaire p{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -496,6 +508,16 @@ filter: brightness(0.8);
 .prsite:hover{
 filter: brightness(0.8);
     background-color: rgb(36, 35, 35);
+   box-shadow: 0px 15px 25px rgba(255, 255, 255, 0.4);
+}
+.reparation-amelioration:hover{
+    filter: brightness(0.8);
+        background-color: rgb(36, 35, 35);
+   box-shadow: 0px 15px 25px rgba(255, 255, 255, 0.4);
+}
+.scolaire:hover{
+    filter: brightness(0.8);
+        background-color: rgb(36, 35, 35);
    box-shadow: 0px 15px 25px rgba(255, 255, 255, 0.4);
 }
 .documentation{
@@ -726,44 +748,4 @@ flex-wrap: wrap;
 display: flex;
     color: grey;
     margin-top:100px ;
-}
-@media (max-width: 768px) {
-  .slider {
-    position: static;
-    width: 100%;
-    height: auto;
-    padding-bottom: 30px;
-  }
-
-  .slider-content {
-    position: static;
-    text-align: center;
-    padding: 20px;
-  }
-
-  .slider-background {
-    width: 60%;
-    margin: 20px auto;
-  }
-
-  .content,
-  .competence,
-  .parcours-formation,
-  .projet,
-  .documentation {
-    margin-left: 0;
-    width: 100%;
-    height: auto;
-    min-height: auto;
-    padding-bottom: 40px;
-  }
-
-  .btcontent,
-  .btslider {
-    justify-content: center;
-  }
-
-  .btcv button {
-    width: 100%;
-  }
 }

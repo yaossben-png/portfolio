@@ -18,6 +18,10 @@ document.getElementById('voir-contact').addEventListener('click', function() {
   document.getElementById('seccont').scrollIntoView({behavior:'smooth'});
 });
 
+document.getElementById('voir-veille').addEventListener('click', function() {
+  document.getElementById('secveille').scrollIntoView({behavior:'smooth'});
+});
+
 document.getElementById('up').addEventListener('click', function() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 });

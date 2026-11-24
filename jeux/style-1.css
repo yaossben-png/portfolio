@@ -1,9 +1,176 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
+/* ================= CIEL ÉTOILÉ ANIMÉ (fond) ================= */
+:root {
+  --ciel-haut: #02030a;
+  --ciel-bas: #14233f;
+  --etoile: #ffffff;
+  --etoile-bleue: #cfe0ff;
+  --etoile-doree: #ffe8c2;
 }
-.body{ background-color: black;
-    height:100%;
-    width:100%;}
+
+/* ===== Le fond : dégradé de nuit + lueurs (statique, donc gratuit) ===== */
+.ciel {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 110%, rgba(70, 110, 200, .35), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 30%, rgba(120, 60, 180, .15), transparent 70%),
+    linear-gradient(to bottom, var(--ciel-haut), var(--ciel-bas));
+}
+
+/* ===== Les couches d'étoiles =====
+   Un seul élément par couche : il glisse (transform) et scintille (opacity).
+   Ces deux animations sont gérées par le GPU : pas de repeinture, pas de flou. */
+.etoiles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(100% + var(--tile));   /* une tuile de marge pour boucler sans saut */
+  background-image: var(--motif);
+  background-size: var(--tile) var(--tile);
+  will-change: transform, opacity;
+  animation:
+    derive var(--duree-derive) linear infinite,
+    scintille var(--duree-scintille) ease-in-out infinite;
+}
+
+/* Décalage du scintillement entre les couches */
+.etoiles.moyennes { animation-delay: 0s, -3s; }
+.etoiles.grosses  { animation-delay: 0s, -1.5s; }
+
+/* Petites étoiles : lointaines, lentes */
+.etoiles.petites {
+  --tile: 300px;
+  --duree-derive: 120s;
+  --duree-scintille: 5s;
+  --motif:
+    radial-gradient(1px 1px at 20px 30px,   var(--etoile), transparent),
+    radial-gradient(1px 1px at 70px 180px,  var(--etoile), transparent),
+    radial-gradient(1px 1px at 130px 90px,  var(--etoile), transparent),
+    radial-gradient(1px 1px at 190px 250px, var(--etoile), transparent),
+    radial-gradient(1px 1px at 240px 40px,  var(--etoile), transparent),
+    radial-gradient(1px 1px at 280px 140px, var(--etoile), transparent),
+    radial-gradient(1px 1px at 40px 230px,  var(--etoile), transparent),
+    radial-gradient(1px 1px at 110px 270px, var(--etoile), transparent),
+    radial-gradient(1px 1px at 160px 20px,  var(--etoile), transparent),
+    radial-gradient(1px 1px at 215px 175px, var(--etoile), transparent);
+}
+
+/* Étoiles moyennes */
+.etoiles.moyennes {
+  --tile: 400px;
+  --duree-derive: 80s;
+  --duree-scintille: 7s;
+  --motif:
+    radial-gradient(1.5px 1.5px at 50px 60px,   var(--etoile-bleue), transparent),
+    radial-gradient(1.5px 1.5px at 150px 320px, var(--etoile),       transparent),
+    radial-gradient(1.5px 1.5px at 230px 120px, var(--etoile-bleue), transparent),
+    radial-gradient(1.5px 1.5px at 320px 260px, var(--etoile),       transparent),
+    radial-gradient(1.5px 1.5px at 360px 30px,  var(--etoile-bleue), transparent),
+    radial-gradient(1.5px 1.5px at 90px 210px,  var(--etoile),       transparent),
+    radial-gradient(1.5px 1.5px at 280px 370px, var(--etoile-bleue), transparent);
+}
+
+/* Grosses étoiles : proches, plus rapides */
+.etoiles.grosses {
+  --tile: 550px;
+  --duree-derive: 50s;
+  --duree-scintille: 4s;
+  --motif:
+    radial-gradient(2px 2px at 100px 80px,  var(--etoile-doree), transparent),
+    radial-gradient(2px 2px at 300px 400px, var(--etoile),       transparent),
+    radial-gradient(2px 2px at 460px 190px, var(--etoile-doree), transparent),
+    radial-gradient(2px 2px at 210px 500px, var(--etoile-bleue), transparent),
+    radial-gradient(2px 2px at 520px 470px, var(--etoile),       transparent);
+}
+
+/* Dérive : on décale d'exactement une tuile → boucle parfaitement continue */
+@keyframes derive {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(calc(var(--tile) * -1), 0, 0); }
+}
+
+/* Scintillement doux */
+@keyframes scintille {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .45; }
+}
+
+/* ===== Étoiles filantes ===== */
+.filante {
+  position: absolute;
+  width: 140px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0));
+  transform-origin: left center;
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  animation: filante 9s linear infinite;
+}
+.filante.f1 { top: 8%;  left: 85%; animation-delay: 1s; }
+.filante.f2 { top: 25%; left: 60%; animation-delay: 4.5s; animation-duration: 12s; }
+.filante.f3 { top: 5%;  left: 40%; animation-delay: 8s;   animation-duration: 15s; }
+
+@keyframes filante {
+  0%   { opacity: 0; transform: translate3d(0, 0, 0) rotate(-45deg); }
+  1.5% { opacity: 1; }
+  6%   { opacity: 1; }
+  10%  { opacity: 0; transform: translate3d(-450px, 450px, 0) rotate(-45deg); }
+  100% { opacity: 0; transform: translate3d(-450px, 450px, 0) rotate(-45deg); }
+}
+
+/* Accessibilité : on coupe les animations si l'utilisateur le demande */
+@media (prefers-reduced-motion: reduce) {
+  .etoiles { animation: none; }
+  .filante { display: none; }
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    isolation: isolate;
+    background-color: var(--ciel-haut);
+    color: aliceblue;
+    font-family: "Inter", sans-serif;
+}
+
+
+.jeux {
+    box-sizing: border-box;
+    width: min(100%, 60rem);
+    margin-inline: auto;
+    padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
+}
+
+.jeux h1 {
+    margin: 0 0 clamp(2rem, 5vw, 4rem);
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.jeux p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.jeux .jeu1 {
+    margin-bottom: 2rem;
+}
+
+.jeux span {
+    display: block;
+    margin-top: 0.25rem;
+    line-height: 1.5;
+}
+
+.jeu1, .jeu2 {
+    background-color: rgba(50, 100, 180, .25);
+}

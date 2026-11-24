@@ -165,133 +165,15 @@
             </a>
         </div>
         </section>
- <div class="veilletech">
-      <article id="secveille" aria-labelledby="titre-veille">
-<header>
-    <h2 id="titre-veille">L'IA en local : peut-on se passer du cloud ?</h2>
-    <p class="lead">Veille technologique du BTS SIO, option SLAM. Je cherche à savoir si une IA installée sur mon propre ordinateur peut remplacer les services en ligne.</p>
-
-    <div class="term" role="img" aria-label="Illustration : une commande lancée dans un terminal, sans connexion à un service en ligne">
-      <p><span class="prompt">$</span> ollama run &lt;modèle&gt;</p>
-      <p><span class="prompt">&gt;&gt;&gt;</span> Mes données quittent-elles mon PC ?</p>
-      <p class="out">Non : le modèle tourne sur cette machine.</p>
-      <p><span class="prompt">&gt;&gt;&gt;</span> <span class="cursor" aria-hidden="true"></span></p>
     </div>
-    <p class="caption">Illustration : la requête est traitée sur la machine, sans passer par un serveur distant.</p>
-  </header>
-
-  <section aria-labelledby="problematique">
-    <h3 id="problematique">Problématique</h3>
-    <p class="question">Dans quelle mesure l'installation d'une IA en local peut-elle remplacer une IA dans le cloud, en matière de confidentialité, de coût et de performances ?</p>
-    <p>Jusqu'ici, utiliser une IA revenait à envoyer ses textes à un serveur extérieur. Des modèles ouverts, assez légers pour tourner sur un ordinateur personnel, changent la donne. J'ai choisi ce sujet pour le tester concrètement sur ma propre machine.</p>
-  </section>
-
-  <section aria-labelledby="notions">
-    <h3 id="notions">Les notions à connaître</h3>
-    <ul>
-      <li><strong>Modèle ouvert</strong> : un modèle d'IA dont les fichiers peuvent être téléchargés et exécutés soi-même.</li>
-      <li><strong>Paramètres</strong> : la taille d'un modèle. « 8B » signifie 8 milliards de paramètres. Plus il y en a, plus le modèle est capable, mais plus il demande de mémoire.</li>
-      <li><strong>Quantification</strong> : une compression qui réduit la mémoire nécessaire, au prix d'une légère perte de qualité.</li>
-      <li><strong>VRAM</strong> : la mémoire de la carte graphique. Elle limite la taille des modèles que le GPU peut charger.</li>
-      <li><strong>GGUF</strong> : le format de fichier de modèle utilisé par llama.cpp.</li>
-    </ul>
-  </section>
-
-  <section aria-labelledby="outils">
-    <h3 id="outils">Les outils étudiés</h3>
-    <dl class="tools">
-      <dt>Ollama</dt>
-      <dd>Un outil en ligne de commande pour télécharger et lancer des modèles en une commande. Il expose aussi une API locale, utile pour brancher une IA à ses propres applications. <a href="https://ollama.com">ollama.com</a></dd>
-
-      <dt>llama.cpp</dt>
-      <dd>Le moteur d'exécution en C/C++ sur lequel s'appuient de nombreux outils. Il fonctionne sur processeur comme sur carte graphique et utilise le format GGUF. <a href="https://github.com/ggml-org/llama.cpp">github.com/ggml-org/llama.cpp</a></dd>
-
-      <dt>LM Studio</dt>
-      <dd>Une application avec interface graphique pour chercher, télécharger et tester des modèles sans ligne de commande. <a href="https://lmstudio.ai">lmstudio.ai</a></dd>
-    </dl>
-  </section>
-
-  <section aria-labelledby="comparatif">
-    <h3 id="comparatif">Local ou cloud : le comparatif</h3>
-    <div class="table-wrap" tabindex="0" role="region" aria-label="Tableau comparatif IA locale et IA cloud">
-      <table>
-        <thead>
-          <tr><th scope="col">Critère</th><th scope="col">IA en local</th><th scope="col">IA dans le cloud</th></tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row">Confidentialité</th><td>Les données restent sur la machine. Aucun transfert à un tiers.</td><td>Les données sont envoyées à un prestataire, avec ses conditions d'utilisation et les obligations du RGPD.</td></tr>
-          <tr><th scope="row">Coût</th><td>Modèles gratuits. Le coût est celui du matériel et de l'électricité.</td><td>Abonnement ou paiement à l'usage. Aucun matériel à acheter.</td></tr>
-          <tr><th scope="row">Performances</th><td>Limitées par la RAM, la VRAM et le processeur.</td><td>Très gros modèles et réponses rapides, sans dépendre de son PC.</td></tr>
-          <tr><th scope="row">Qualité des réponses</th><td>Bonne sur des tâches ciblées avec un modèle adapté. Moins solide sur les raisonnements complexes.</td><td>En général meilleure sur les tâches complexes.</td></tr>
-          <tr><th scope="row">Hors connexion</th><td>Fonctionne sans internet.</td><td>Nécessite une connexion.</td></tr>
-          <tr><th scope="row">Maintenance</th><td>Installation, mises à jour et choix des modèles à gérer soi-même.</td><td>Gérée par le fournisseur.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section aria-labelledby="demo">
-    <h3 id="demo">Ma démonstration</h3>
-    <p>Je teste plusieurs modèles de tailles différentes sur ma machine, en mode processeur puis en mode carte graphique, avec la même série de questions.</p>
-
-    <h4>Protocole</h4>
-    <ol>
-      <li>Installer Ollama et LM Studio sur Windows 11.</li>
-      <li>Télécharger trois modèles de tailles croissantes (petit, moyen, gros).</li>
-      <li>Poser les mêmes questions à chacun, en CPU puis en GPU.</li>
-      <li>Relever la mémoire utilisée, la vitesse (tokens par seconde) et la qualité des réponses.</li>
-    </ol>
-
-    <h4>Configuration de test</h4>
-    <div class="table-wrap" tabindex="0" role="region" aria-label="Configuration de test">
-      <table>
-        <tbody>
-          <tr><th scope="row">Processeur</th><td>Intel Core i5-14400F</td></tr>
-          <tr><th scope="row">Carte graphique</th><td class="todo">à compléter</td></tr>
-          <tr><th scope="row">Mémoire vive</th><td class="todo">à compléter</td></tr>
-          <tr><th scope="row">Système</th><td>Windows 11</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h4>Résultats</h4>
-    <div class="table-wrap" tabindex="0" role="region" aria-label="Résultats des tests">
-      <table>
-        <thead>
-          <tr><th scope="col">Modèle</th><th scope="col">Exécution</th><th scope="col">Mémoire utilisée</th><th scope="col">Vitesse (tokens/s)</th><th scope="col">Qualité</th></tr>
-        </thead>
-        <tbody>
-          <tr><td class="todo">petit modèle</td><td>CPU</td><td class="todo">à mesurer</td><td class="todo">à mesurer</td><td class="todo">à noter</td></tr>
-          <tr><td class="todo">petit modèle</td><td>GPU</td><td class="todo">à mesurer</td><td class="todo">à mesurer</td><td class="todo">à noter</td></tr>
-          <tr><td class="todo">modèle moyen</td><td>CPU</td><td class="todo">à mesurer</td><td class="todo">à mesurer</td><td class="todo">à noter</td></tr>
-          <tr><td class="todo">modèle moyen</td><td>GPU</td><td class="todo">à mesurer</td><td class="todo">à mesurer</td><td class="todo">à noter</td></tr>
-          <tr><td class="todo">gros modèle</td><td>CPU</td><td class="todo">à mesurer</td><td class="todo">à mesurer</td><td class="todo">à noter</td></tr>
-          <tr><td class="todo">gros modèle</td><td>GPU</td><td class="todo">à mesurer</td><td class="todo">à mesurer</td><td class="todo">à noter</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section aria-labelledby="conclusion">
-    <h3 id="conclusion">Ce que j'en retiens à ce stade</h3>
-    <p>L'IA en local répond bien à un besoin de confidentialité et de maîtrise : les données ne quittent pas la machine et l'usage ne coûte rien de plus que l'électricité. Le cloud garde l'avantage pour les très gros modèles et pour ceux qui ne veulent pas gérer de matériel. Mes mesures détermineront où se situe la limite pour un usage d'étudiant en développement.</p>
-  </section>
-
-  <section aria-labelledby="sources">
-    <h3 id="sources">Mes sources de veille</h3>
-    <p>Je suis les nouvelles versions des outils et les nouveaux modèles. Pour les dépôts GitHub, j'active les notifications de « Releases ».</p>
-    <ul class="sources">
-      <li><a href="https://github.com/ollama/ollama">Ollama sur GitHub</a><span>Nouvelles versions et modèles pris en charge.</span></li>
-      <li><a href="https://github.com/ggml-org/llama.cpp">llama.cpp sur GitHub</a><span>Le dépôt le plus actif : support matériel, formats, performances.</span></li>
-      <li><a href="https://lmstudio.ai">LM Studio</a><span>Évolutions de l'application et catalogue de modèles.</span></li>
-      <li><a href="https://huggingface.co">Hugging Face</a><span>Publication des nouveaux modèles ouverts.</span></li>
-      <li><a href="https://www.cnil.fr">CNIL</a><span>Recommandations sur l'IA et la protection des données personnelles.</span></li>
-      <li><a href="https://www.reddit.com/r/LocalLLaMA/">r/LocalLLaMA</a><span>Retours d'expérience de la communauté sur le matériel et les modèles.</span></li>
-    </ul>
-  </section>
-
-  <footer>Dernière mise à jour : novembre 2026</footer>
-      </article>
+        <div class="veilletech">
+        <section id="secveille">
+        <h3> Veille technologique</h3>
+        <div class="contveil">
+        <p>Installation d'une ia sur sa machine</p>
+        <span></span>
+        </div>
+        </section>
     </div>
     <div class="documentation">
         <h3>documentation</h3>

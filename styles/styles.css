@@ -11,8 +11,7 @@ body {
 .slider {
   width: 30%;
   height: 100vh;
- background: rgba(29, 29, 29, 0.75);
- backdrop-filter: blur(4px);
+ background: rgba(29, 29, 29, 0.85);
  position:fixed;
  top: 0;
 left:0;
@@ -788,6 +787,13 @@ display: flex;
     color:aliceblue;
     margin-right:5px ;}
 
+/* Section "me contacter" : alignée sur la colonne de contenu, comme les autres sections */
+.contact{
+    margin-left: 30%;
+    width: 70%;
+    padding-bottom: 60px;
+}
+
 /* ================= CIEL ÉTOILÉ ANIMÉ (fond) ================= */
 :root {
   --ciel-haut: #02030a;
@@ -803,6 +809,8 @@ display: flex;
   inset: 0;
   z-index: -1;
   overflow: hidden;
+  pointer-events: none;
+  contain: strict;
   background:
     radial-gradient(ellipse 80% 50% at 50% 110%, rgba(70, 110, 200, .35), transparent 70%),
     radial-gradient(ellipse 60% 40% at 20% 30%, rgba(120, 60, 180, .15), transparent 70%),
@@ -810,36 +818,25 @@ display: flex;
 }
 
 /* ===== Les couches d'étoiles =====
-   - le conteneur .etoiles ne fait QUE se déplacer (transform → GPU)
-   - ses deux pseudo-éléments dessinent les étoiles et ne font QUE scintiller (opacity → GPU)
-   Résultat : aucune repeinture pendant l'animation, donc fluide à 60 fps. */
+   Un seul élément par couche : il glisse (transform) et scintille (opacity).
+   Ces deux animations sont gérées par le GPU : pas de repeinture, pas de flou. */
 .etoiles {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: calc(100% + var(--tile));   /* une tuile de marge pour boucler sans saut */
-  will-change: transform;
-  backface-visibility: hidden;
-  animation: derive var(--duree-derive) linear infinite;
-}
-
-.etoiles::before,
-.etoiles::after {
-  content: "";
-  position: absolute;
-  inset: 0;
   background-image: var(--motif);
   background-size: var(--tile) var(--tile);
-  will-change: opacity;
-  animation: scintille var(--duree-scintille) ease-in-out infinite;
+  will-change: transform, opacity;
+  animation:
+    derive var(--duree-derive) linear infinite,
+    scintille var(--duree-scintille) ease-in-out infinite;
 }
 
-/* Deuxième motif décalé et déphasé : les étoiles ne clignotent pas toutes en même temps */
-.etoiles::after {
-  background-position: calc(var(--tile) / 2) calc(var(--tile) / 2);
-  animation-delay: calc(var(--duree-scintille) / -2);
-}
+/* Décalage du scintillement entre les couches */
+.etoiles.moyennes { animation-delay: 0s, -3s; }
+.etoiles.grosses  { animation-delay: 0s, -1.5s; }
 
 /* Petites étoiles : lointaines, lentes */
 .etoiles.petites {
@@ -896,7 +893,7 @@ display: flex;
 /* Scintillement doux */
 @keyframes scintille {
   0%, 100% { opacity: 1; }
-  50%      { opacity: .3; }
+  50%      { opacity: .45; }
 }
 
 /* ===== Étoiles filantes ===== */
@@ -926,8 +923,6 @@ display: flex;
 
 /* Accessibilité : on coupe les animations si l'utilisateur le demande */
 @media (prefers-reduced-motion: reduce) {
-  .etoiles,
-  .etoiles::before,
-  .etoiles::after { animation: none; }
+  .etoiles { animation: none; }
   .filante { display: none; }
 }

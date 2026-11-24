@@ -915,3 +915,69 @@ display: flex;
   .etoiles { animation: none; }
   .filante { display: none; }
 }
+.btveille a {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+}
+#secveille {
+    box-sizing: border-box;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 3rem clamp(1rem, 4vw, 3rem);
+    color: aliceblue;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+}
+#secveille h2, #secveille h3, #secveille h4 {
+    position: static;
+    text-align: left;
+    line-height: 1.25;
+    color: aliceblue;
+}
+#secveille h2 { font-size: clamp(1.75rem, 3.5vw, 2.75rem); margin: 0 0 1rem; }
+#secveille h3 { font-size: 1.55rem; margin: 2.5rem 0 .8rem; }
+#secveille h4 { font-size: 1.15rem; margin: 1.5rem 0 .5rem; }
+#secveille p, #secveille li { margin-bottom: .65rem; }
+#secveille ul, #secveille ol { padding-left: 1.4rem; }
+#secveille .lead { font-size: 1.1rem; }
+#secveille .question, #secveille thead { background: rgba(50,100,180,.25); }
+#secveille .question { border-left: 3px solid #cfe0ff; padding: 1rem; }
+#secveille .term {
+    background: #02030a;
+    border: 1px solid rgba(207,224,255,.35);
+    border-radius: .6rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-family: ui-monospace, monospace;
+}
+#secveille .term p { margin: 0; }
+#secveille .prompt, #secveille a { color: #cfe0ff; }
+#secveille .cursor { display: inline-block; width: .55em; height: 1em; background: #cfe0ff; vertical-align: text-bottom; }
+#secveille .caption, #secveille footer, #secveille .sources span { font-size: .9rem; color: #cfe0ff; }
+#secveille dt { font-weight: bold; margin-top: 1rem; }
+#secveille .table-wrap { overflow-x: auto; margin: .75rem 0; }
+#secveille table { border-collapse: collapse; width: 100%; min-width: 32rem; }
+#secveille th, #secveille td { text-align: left; vertical-align: top; padding: .65rem; border-bottom: 1px solid rgba(207,224,255,.3); }
+#secveille .todo { color: #ffe8c2; }
+#secveille .sources { list-style: none; padding: 0; }
+#secveille .sources span { display: block; }
+#secveille footer { margin-top: 2rem; }
+#secveille :focus-visible, #voir-veille:focus-visible { outline: 2px solid #cfe0ff; outline-offset: 2px; }
+
+@media (max-width: 700px) {
+    .slider { position: relative; width: 100%; height: auto; }
+    .slider-content { position: static; padding: 1rem; }
+    .content, .competence, .parcours-formation, .projet, .veilletech, .documentation, .contact {
+        box-sizing: border-box;
+        width: 100%;
+        margin-left: 0;
+        height: auto;
+        min-height: 0;
+        padding-block: 1.5rem;
+    }
+}
